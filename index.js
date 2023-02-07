@@ -1,7 +1,6 @@
 'use strict';
 
 const BbPromise = require('bluebird');
-const s3 = require('@auth0/s3');
 const minimatch = require('minimatch');
 const path = require('path');
 const fs = require('fs');
@@ -131,7 +130,7 @@ class ServerlessS3Sync {
   client() {
     const provider = this.serverless.getProvider('aws');
     const s3Options = getAwsOptions(provider)
-
+    const s3 = require('@auth0/s3');
     if(this.getEndpoint() && this.isOffline()) {
       s3Options.endpoint = new provider.sdk.Endpoint(this.serverless.service.custom.s3Sync.endpoint);
       s3Options.s3ForcePathStyle = true;
